@@ -139,10 +139,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("I/TCP Client", "Connected to server");
 
                 Partida main = new Partida(socket);
+
                 main.iniciarSesion(nFamilia.getText().toString(),fSecreta.getText().toString());
 
+                Main2Activity.recibirPartida(main);
+
                 startActivity(new Intent(MainActivity.this, Main2Activity.class));
-                new Main2Activity.iniciarPartidaThread(main).run();
+
+
 
 
             }

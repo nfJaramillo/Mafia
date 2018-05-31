@@ -517,6 +517,7 @@ public class Partida
     public Jugador darJugadorEnTurno( )
     {
         Jugador respuesta = jugador;
+
         if( oponentes[ 0 ].darNombreFamilia( ).equals( turno ) )
         {
             respuesta = oponentes[ 0 ];

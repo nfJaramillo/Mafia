@@ -16,6 +16,7 @@ import static android.graphics.Color.parseColor;
 
 public class Main2Activity extends AppCompatActivity {
 
+    private static Partida main;
     //Primera seccion
     private TextView miFamilia;
     private TextView turno;
@@ -45,6 +46,7 @@ public class Main2Activity extends AppCompatActivity {
     private Button C3;
     private Button C4;
     private Button C5;
+
 
 
     private Context context = this;
@@ -95,15 +97,21 @@ public class Main2Activity extends AppCompatActivity {
         C5 = ((Button) findViewById(R.id.C5));
 
 
+         new iniciarPartidaThread(main,this).run();
 
     }
 
     public static class iniciarPartidaThread implements Runnable {
         private Partida main;
-        public iniciarPartidaThread(Partida pMain)
+        public iniciarPartidaThread(Partida pMain, Main2Activity a)
         {
             main = pMain;
+
+            a.actualizarInterfaz(main);
+
+
         }
+
 
         @Override
         public void run() {
@@ -121,33 +129,34 @@ public class Main2Activity extends AppCompatActivity {
     public void actualizarInterfaz(Partida main)
     {
         //Actualiza 1ra seccion
-        miFamilia.setText(main.darJugador().darNombreFamilia() + ":" +'\n' + main.darDineroRecolectado());
-        turno.setText("Turno actual:" + '\n' + main.darJugadorEnTurno().darNombreFamilia());
-
-        familias.setText(main.darJugador().darNombreFamilia() +": Azul" + '\n' + main.darOponentes()[0].darNombreFamilia()+": Rojo" + '\n' + main.darJugadores().get(1).darNombreFamilia()+": Amarillo");
-        //Actualiza 2da seccion
-
-        for(int i = 0; i < main.darMafiosos().size(); i++)
+        if (main.darOponentes()[0]!= null && main.darOponentes()[1]!=null && main.darJugadorEnTurno()!=null )
         {
+            miFamilia.setText(main.darJugador().darNombreFamilia() + ":" +'\n' + main.darDineroRecolectado());
+            turno.setText("Turno actual:" + '\n' + main.darJugadorEnTurno().darNombreFamilia());
+            familias.setText(main.darJugador().darNombreFamilia() +": Azul" + '\n' + main.darOponentes()[0].darNombreFamilia()+": Rojo" + '\n' + main.darJugadores().get(1).darNombreFamilia()+": Amarillo");
 
-            Mafioso m =  main.darMafiosos().get(i);
-            int silla = m.darUbicacion();
-            String tipo = m.darTipo();
-           int color =  m.darJugador().darColor();
-           botones.get(silla - 1).setBackgroundColor(colorear(color));
-            botones.get(silla - 1).setText(tipo);
+            //Actualiza 2da seccion
 
+            for(int i = 0; i < main.darMafiosos().size(); i++)
+            {
+
+                Mafioso m =  main.darMafiosos().get(i);
+                int silla = m.darUbicacion();
+                String tipo = m.darTipo();
+                int color =  m.darJugador().darColor();
+                botones.get(silla - 1).setBackgroundColor(colorear(color));
+                botones.get(silla - 1).setText(tipo);
+
+            }
+            dinero.setText(String.valueOf(main.darDineroMesa()));
+
+            // 3ra seccion
+            C1.setText(main.darCartas()[0]);
+            C2.setText(main.darCartas()[1]);
+            C3.setText(main.darCartas()[2]);
+            C4.setText(main.darCartas()[3]);
+            C5.setText(main.darCartas()[4]);
         }
-        dinero.setText(String.valueOf(main.darDineroMesa()));
-
-        // 3ra seccion
-        C1.setText(main.darCartas()[0]);
-        C2.setText(main.darCartas()[1]);
-        C3.setText(main.darCartas()[2]);
-        C4.setText(main.darCartas()[3]);
-        C5.setText(main.darCartas()[4]);
-
-
 
     }
 
@@ -164,5 +173,10 @@ public class Main2Activity extends AppCompatActivity {
         {
             return parseColor("green");
         }
+    }
+
+    public static void recibirPartida(Partida a)
+    {
+        main = a;
     }
 }
