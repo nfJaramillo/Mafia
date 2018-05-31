@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     private class loginThread implements Runnable {
         @Override
         public void run() {
@@ -140,6 +142,9 @@ public class MainActivity extends AppCompatActivity {
                 main.iniciarSesion(nFamilia.getText().toString(),fSecreta.getText().toString());
 
                 startActivity(new Intent(MainActivity.this, Main2Activity.class));
+                new Main2Activity.iniciarPartidaThread(main).run();
+
+
             }
             catch (Exception e)
             {
