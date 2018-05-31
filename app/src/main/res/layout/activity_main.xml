@@ -12,7 +12,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Localhost"
+        android:text="157.253.239.40"
         android:id="@+id/servidor"/>
 
 

@@ -11,6 +11,7 @@
  */
 package com.example.nfjaramillo.mafia;
 
+import android.content.Intent;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -467,7 +468,9 @@ public class Partida
      */
     public void iniciarSesion( String pNombreFamilia, String pFraseSecreta ) throws Exception
     {
+
         enviarMensaje( INGRESAR, pNombreFamilia, pFraseSecreta );
+
         String respuesta[] = recibirMensaje( ).split( SEPARADOR_COMANDO );
         if( respuesta[ 0 ].equals( ERROR ) )
         {
@@ -480,6 +483,7 @@ public class Partida
         jugador.cambiarVictorias( Integer.parseInt( info[ 1 ] ) );
 
         estado = ESPERANDO_OPONENTES;
+
     }
 
     /**
