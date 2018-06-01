@@ -48,9 +48,8 @@
         android:layout_height="93dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="12dp"
-        android:text="Button"
         android:layout_alignParentRight="true"
+        android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
         tools:ignore="RtlCompat" />
 
@@ -187,10 +186,10 @@
 
     <TextView
         android:id="@+id/dinero"
-        android:layout_width="113dp"
-        android:layout_height="31dp"
+        android:layout_width="123dp"
+        android:layout_height="37dp"
         android:layout_centerInParent="true"
-        android:text="TextView" />
+        android:text="Esperando jugadores..." />
 
     <TextView
         android:id="@+id/Familias"
@@ -202,15 +201,22 @@
     <TextView
         android:id="@+id/miFamilia"
         android:layout_width="104dp"
-        android:layout_height="152dp"
+        android:layout_height="68dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
         android:layout_toStartOf="@+id/C4" />
 
     <TextView
+        android:id="@+id/pasteles"
+        android:layout_width="219dp"
+        android:layout_height="68dp"
+        android:layout_alignBottom="@+id/Familias"
+        android:layout_alignEnd="@+id/S7" />
+
+    <TextView
         android:id="@+id/turno"
         android:layout_width="104dp"
-        android:layout_height="152dp"
+        android:layout_height="68dp"
         android:layout_alignEnd="@+id/S7"
         android:layout_alignTop="@+id/miFamilia" />
 
@@ -221,6 +227,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="115dp"
-        android:text="Decartar Carta" />
+        android:text="Descartar carta" />
 
 </RelativeLayout>

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText nCapo;
     private EditText fSecreta;
 
+
     private Context context = this;
 
 
@@ -52,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if(nFamilia.getText().toString().length()>0&&fSecreta.getText().toString().length()>0){
                             new Thread(new loginThread()).start();
-                            startActivity(new Intent(MainActivity.this, Main2Activity.class));
+
+
                             //MyATaskCliente myATaskYW = new MyATaskCliente();
                             //myATaskYW.execute(nFamilia.getText().toString(),fSecreta.getText().toString());
 
@@ -143,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 Partida main = new Partida(socket);
 
                 main.iniciarSesion(nFamilia.getText().toString(),fSecreta.getText().toString());
-
+                startActivity(new Intent(MainActivity.this, Main2Activity.class));
                 Main2Activity.recibirPartida(main);
 
 

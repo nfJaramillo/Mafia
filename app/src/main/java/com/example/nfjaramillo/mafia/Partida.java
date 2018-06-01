@@ -729,7 +729,7 @@ public class Partida
      * @param pSilla Silla de la cual se quiere conocer si hay pastel.
      * @return True si hay un pastel sobre la silla dada, false en caso contrario.
      */
-    private boolean hayPastel( int pSilla )
+    public boolean hayPastel( int pSilla )
     {
         return jugador.darUbicacionPastel( ) == pSilla || oponentes[ 0 ].darUbicacionPastel( ) == pSilla || oponentes[ 1 ].darUbicacionPastel( ) == pSilla;
     }
@@ -761,7 +761,7 @@ public class Partida
      * <b>pre: </b>Hay una carta seleccionada.<br>
      * <b>post: </b> Se elimino la carta seleccionada del arreglo de cartas.
      */
-    private void eliminarCartaSeleccionada( )
+    public void eliminarCartaSeleccionada( )
     {
         boolean termino = false;
         for( int i = 0; i < cartas.length && !termino; i++ )
