@@ -96,18 +96,20 @@ public class Main2Activity extends AppCompatActivity {
         C4 = ((Button) findViewById(R.id.C4));
         C5 = ((Button) findViewById(R.id.C5));
 
+        new Thread(new iniciarPartidaThread(main,this)).start();
 
-         new iniciarPartidaThread(main,this).run();
+
 
     }
 
     public static class iniciarPartidaThread implements Runnable {
         private Partida main;
-        public iniciarPartidaThread(Partida pMain, Main2Activity a)
+        private Main2Activity a;
+        public iniciarPartidaThread(Partida pMain, Main2Activity pA)
         {
             main = pMain;
+            a = pA;
 
-            a.actualizarInterfaz(main);
 
 
         }
@@ -118,7 +120,7 @@ public class Main2Activity extends AppCompatActivity {
             try {
 
                 main.iniciar();
-
+                a.actualizarInterfaz(main);
             } catch (JuegoMafiaException e) {
                 e.printStackTrace();
             }
@@ -129,15 +131,14 @@ public class Main2Activity extends AppCompatActivity {
     public void actualizarInterfaz(Partida main)
     {
         //Actualiza 1ra seccion
-        if (main.darOponentes()[0]!= null && main.darOponentes()[1]!=null && main.darJugadorEnTurno()!=null )
-        {
+
             miFamilia.setText(main.darJugador().darNombreFamilia() + ":" +'\n' + main.darDineroRecolectado());
             turno.setText("Turno actual:" + '\n' + main.darJugadorEnTurno().darNombreFamilia());
             familias.setText(main.darJugador().darNombreFamilia() +": Azul" + '\n' + main.darOponentes()[0].darNombreFamilia()+": Rojo" + '\n' + main.darJugadores().get(1).darNombreFamilia()+": Amarillo");
 
             //Actualiza 2da seccion
 
-            for(int i = 0; i < main.darMafiosos().size(); i++)
+            for(int i = 0;  i < main.darMafiosos().size(); i++)
             {
 
                 Mafioso m =  main.darMafiosos().get(i);
@@ -156,7 +157,11 @@ public class Main2Activity extends AppCompatActivity {
             C3.setText(main.darCartas()[2]);
             C4.setText(main.darCartas()[3]);
             C5.setText(main.darCartas()[4]);
-        }
+
+
+
+
+
 
     }
 

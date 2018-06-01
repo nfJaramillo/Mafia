@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if(nFamilia.getText().toString().length()>0&&fSecreta.getText().toString().length()>0){
                             new Thread(new loginThread()).start();
+                            startActivity(new Intent(MainActivity.this, Main2Activity.class));
                             //MyATaskCliente myATaskYW = new MyATaskCliente();
                             //myATaskYW.execute(nFamilia.getText().toString(),fSecreta.getText().toString());
 
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(nFamilia.getText().toString().length()>0&&fSecreta.getText().toString().length()>0){
                     new Thread(new RegisterThread()).start();
+                    startActivity(new Intent(MainActivity.this, Main2Activity.class));
                     //MyATaskCliente myATaskYW = new MyATaskCliente();
                     //myATaskYW.execute(nFamilia.getText().toString(),fSecreta.getText().toString());
 
@@ -144,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
 
                 Main2Activity.recibirPartida(main);
 
-                startActivity(new Intent(MainActivity.this, Main2Activity.class));
 
 
+                Thread.interrupted();
 
 
             }

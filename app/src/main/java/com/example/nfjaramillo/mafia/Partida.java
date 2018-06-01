@@ -278,6 +278,8 @@ public class Partida
      */
     private BufferedReader in;
 
+    private InputStream stream;
+
     // -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
@@ -517,6 +519,7 @@ public class Partida
     public Jugador darJugadorEnTurno( )
     {
         Jugador respuesta = jugador;
+
 
         if( oponentes[ 0 ].darNombreFamilia( ).equals( turno ) )
         {
@@ -817,19 +820,23 @@ public class Partida
     {
         // INICIAR_PARTIDA
         String mensaje[] = recibirMensaje( ).split( SEPARADOR_COMANDO );
-
+        Log.i("I/TCP Client", "INICIANDO PARTIDA...");
         // CARTAS|carta1;...;carta5
         mensaje = recibirMensaje( ).split( SEPARADOR_COMANDO )[ 1 ].split( SEPARADOR_PARAMETROS );
         for( int i = 0; i < CANTIDAD_CARTAS; i++ )
         {
             String carta = mensaje[ i ];
             cartas[ i ] = carta;
+            Log.i("I/TCP Client", "CARTAS");
         }
 
         for( int i = 0; i < CANTIDAD_OPONENTES + 1; i++ )
+
         {
+            Log.i("I/TCP Client", "OPONENTES");
             // JUGADOR|nombreFamilia;;;CAPO:silla;;;PISTOLON:silla;;;PINCHORIZZO:silla;;;MATON:silla
             mensaje = recibirMensaje( ).split( SEPARADOR_COMANDO )[ 1 ].split( SEPARADOR_PARAMETROS );
+            Log.i("I/TCP Client", "OPONENTES222222");
             String nombreFamilia = mensaje[ 0 ];
 
             if( nombreFamilia.equals( jugador.darNombreFamilia( ) ) )
@@ -1171,16 +1178,8 @@ public class Partida
     {
         try
         {
-            //recibe respuesta del servidor y formatea a String
-            Log.i("I/TCP Client", "Received data to server");
-            InputStream stream = canal.getInputStream();
-            byte[] lenBytes = new byte[256];
-            stream.read(lenBytes,0,256);
-            String received = new String(lenBytes,"UTF-8").trim();
-            Log.i("I/TCP Client", "Received " + received);
-            Log.i("I/TCP Client", "");
-            //cierra conexion
-            return received;
+            String mensaje = in.readLine( );
+            return mensaje;
         }
         catch( IOException e )
         {
