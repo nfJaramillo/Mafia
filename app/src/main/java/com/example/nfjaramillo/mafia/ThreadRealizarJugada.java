@@ -82,7 +82,11 @@ public class ThreadRealizarJugada implements Runnable{
                     {
                         Log.i("Silla","Intenta cambiar");
                       //  principal.mostrarConfirmacionCambioSilla( );
-                        principal.cambiarSilla();
+                        try {
+                            principal.cambiarSilla();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                         puede = true;
                         break;

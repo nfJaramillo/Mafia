@@ -44,6 +44,7 @@ public class Main2Activity extends AppCompatActivity {
     private Button S12;
     private TextView dinero;
     private ArrayList <Button> botones;
+    private static MainActivity mActivity;
 
     //Tercera seccion
     private Button dCarta;
@@ -144,7 +145,11 @@ public class Main2Activity extends AppCompatActivity {
         });
         dCarta.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                main.eliminarCartaSeleccionada();
+                try {
+                    realizarJugada(-1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         S1.setOnClickListener(new View.OnClickListener() {
@@ -339,6 +344,7 @@ public class Main2Activity extends AppCompatActivity {
             String pastel = "";
             for(int i = 0; i < botones.size();i++)
             {
+                Log.i("Botones", "Son: "+botones.size());
 
 
                 if(main.hayPastel(i)==true)
@@ -373,6 +379,10 @@ public class Main2Activity extends AppCompatActivity {
     public static void recibirPartida(Partida a)
     {
         main = a;
+    }
+    public static void recibirPrimera(MainActivity a)
+    {
+        mActivity = a;
     }
 
     public void mostrarFinJuego()
@@ -522,44 +532,16 @@ public class Main2Activity extends AppCompatActivity {
         main.seleccionarCarta( main.darCartas( )[ pSeleccionada ] );
         actualizarInterfaz( main);
     }
-    public void cambiarSilla()
-    {
-        AlertDialog.Builder cambio = new AlertDialog.Builder(Main2Activity.this);
-        cambio.setMessage("Usted tiene una carta para cambiar silla, ¿Desea usarla?").setCancelable(false)
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        for( int i = 0; i < main.darCartas( ).length; i++ )
-                        {
-                            String carta = main.darCartas( )[ i ];
-                            if( carta != null && carta.equals( Partida.CAMBIAR_SILLA ) )
-                            {
-                                main.seleccionarCarta( main.darCartas( )[ i ] );
-                                break;
-                            }
-                        }
-
-                        actualizarInterfaz( main);
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                try {
-                    finalizarJugada();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        Looper.prepare();
-        Log.i("Cambio","intentara crear");
-        AlertDialog alerta = cambio.create();
-        Log.i("Cambio","Creo");
-        alerta.setTitle("Cambio silla");
-        alerta.show();
-
-
+    public void cambiarSilla() throws IOException {
+       if( mActivity.cambiarSilla() == true)
+       {
+           actualizarInterfaz(main);
+       }
+       else
+       {
+           finalizarJugada();
+       }
     }
+
 
 }
